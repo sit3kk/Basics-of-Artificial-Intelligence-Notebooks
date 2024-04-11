@@ -28,3 +28,31 @@ t-SNE jest zaawansowaną techniką redukcji wymiarowości, która jest często w
 - **Koszt obliczeniowy:** t-SNE może być czasochłonne, szczególnie dla bardzo dużych zbiorów danych.
 
 t-SNE jest potężnym narzędziem do eksploracji i wizualizacji danych, które pomaga w odkrywaniu ukrytych struktur w danych wielowymiarowych, choć wymaga starannego doboru parametrów i interpretacji wyników.
+
+# Przykład działania t-SNE
+
+Załóżmy, że naszym zadaniem jest wizualizacja złożonego zbioru danych kwiatów, gdzie każdy kwiat opisany jest za pomocą czterech cech: długość płatka, szerokość płatka, długość kielicha i szerokość kielicha. Naszym celem jest przedstawienie tych danych w przestrzeni dwuwymiarowej (R2), aby łatwiej zidentyfikować wzorce i zależności między różnymi typami kwiatów.
+
+## Krok 1: Przygotowanie danych
+
+Mamy zbiór danych składający się z 150 próbek kwiatów, każda z nich opisana czterema cechami. Dane są pierwotnie w przestrzeni czterowymiarowej, co utrudnia ich bezpośrednią wizualizację.
+
+## Krok 2: Stosowanie t-SNE
+
+Do redukcji wymiarowości naszego zbioru danych stosujemy t-SNE z następującymi parametrami:
+- `perplexity`: 30, co jest standardową wartością dla zbiorów o średniej wielkości i oznacza, że każdy punkt będzie miał około 30 "sąsiadów" w sensie podobieństwa.
+- `n_components`: 2, ponieważ chcemy zredukować nasze dane do przestrzeni dwuwymiarowej.
+
+## Krok 3: Wizualizacja wyników
+
+Po zastosowaniu t-SNE otrzymujemy nową reprezentację naszych danych w przestrzeni dwuwymiarowej. Każdy punkt na wykresie odpowiada jednemu kwiatowi z oryginalnego zbioru danych, a jego położenie odzwierciedla podobieństwo do innych kwiatów w kontekście wszystkich czterech cech.
+
+### Co możemy zaobserwować?
+
+- **Klastry:** Kwiaty podobne do siebie (np. te same gatunki) są grupowane razem w klastry, co wskazuje na ich bliskość w przestrzeni wielowymiarowej.
+- **Oddzielenie gatunków:** Jeśli różne gatunki kwiatów mają unikalne charakterystyki, t-SNE pomoże w ich rozdzieleniu na wykresie, nawet jeśli różnice te są subtelne i rozproszone po wielu wymiarach.
+- **Wyjątki i anomalie:** Punkty, które nie pasują do głównych grup, mogą zostać zidentyfikowane jako potencjalne wyjątki lub anomalie, co może wskazywać na błędy w danych lub nietypowe przypadki.
+
+## Podsumowanie
+
+t-SNE pozwoliło nam na skuteczną wizualizację i zrozumienie złożonych zależności między próbkami kwiatów, co byłoby trudne do osiągnięcia w oryginalnej, czterowymiarowej przestrzeni. Ta technika jest nieoceniona w eksploracyjnej analizie danych, gdzie wizualne przedstawienie może ujawnić ukryte wzorce i struktury.
