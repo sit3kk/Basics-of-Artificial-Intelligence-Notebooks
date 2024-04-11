@@ -52,50 +52,37 @@ Nowy C2: średnia {11, 12, 20} = 14.33.
 
 Powtarzamy kroki 2 i 3, aż do konwergencji. Metoda k-means++ może skutkować szybszym osiągnięciem stabilności, dzięki lepszemu wyborowi początkowym centroidów.
 
-# Mini-batch k-means
+# Mini-batch k-means - Opis Algorytmu
 
-## Przykładowe Dane
+Przyjmujemy zestaw danych składający się z 6 punktów: `{2, 4, 5, 11, 12, 20}`. Chcemy je podzielić na 2 klastry (`k = 2`).
 
-Załóżmy, że mamy zestaw danych składający się z 6 punktów: {2, 4, 5, 11, 12, 20}. Chcemy podzielić je na 2 klastry (k = 2).
+## Krok 1: Inicjalizacja Centroidów
 
-### Krok 1: Inicjalizacja Centroidów
+Losowo wybieramy dwa punkty jako początkowe centroidy. Załóżmy, że wybrane centroidy to:
 
-Losowo wybieramy dwa punkty jako początkowe centroidy. Załóżmy, że wybieramy 4 i 12 jako początkowe centroidy.
+- `C1: 4`
+- `C2: 12`
 
-- C1: 4
-- C2: 12
+## Krok 2: Wybór Mini-Batch
 
-### Krok 2: Wybór Mini-Batch
+Załóżmy, że w każdym mini-batch będzie 3 punkty. Losowo wybieramy pierwsze trzy punkty: `{2, 4, 5}`.
 
-Załóżmy, że w każdym mini-batch będziemy mieli 3 punkty. Losowo wybieramy pierwsze trzy punkty: {2, 4, 5}.
+## Krok 3: Przypisanie do Centroidów i Aktualizacja Centroidów
 
-### Krok 3: Przypisanie do Centroidów
+Przypisujemy punkty do najbliższego centroidu i aktualizujemy centroidy po każdym przypisaniu:
 
-Punkty 2, 4, 5 są bliżej centroidu C1 (4), więc wszystkie są przypisane do C1.
+- Punkty `2, 4, 5` są bliżej centroidu `C1`. Po przypisaniu każdego punktu, aktualizujemy `C1` na bieżąco, co daje nam nowe położenie centroidu `C1`.
 
-### Krok 4: Aktualizacja Centroidów
+## Krok 4: Powtórzenie z Nowym Mini-Batch
 
-Aktualizujemy centroidy na podstawie przypisanych punktów:
+Wybieramy kolejny mini-batch punktów: `{11, 12, 20}`.
 
-- Nowy C1 to średnia z {2, 4, 5}, co daje 3.66 (zaokrąglając do dwóch miejsc po przecinku).
-- C2 pozostaje niezmienione, ponieważ żaden punkt nie został do niego przypisany w tej iteracji.
+## Krok 5: Przypisanie do Centroidów i Aktualizacja Centroidów
 
-### Krok 5: Powtórzenie z Nowym Mini-Batch
+Podobnie jak wcześniej, przypisujemy punkty do najbliższego centroidu i aktualizujemy centroidy po każdym przypisaniu:
 
-Wybieramy kolejny mini-batch punktów: {11, 12, 20}.
+- Punkty `11` i `12` są bliżej `C2`, a `20` jest znacznie bliżej `C2` niż `C1`, więc wszystkie są przypisane do `C2` i aktualizujemy `C2` na bieżąco.
 
-### Krok 6: Przypisanie do Centroidów
+## Krok 6: Sprawdzenie Konwergencji
 
-Punkty 11 i 12 są bliżej C2, a 20 jest znacznie bliżej C2 niż C1, więc wszystkie są przypisane do C2.
-
-### Krok 7: Aktualizacja Centroidów
-
-Aktualizujemy centroidy na podstawie nowych przypisań:
-
-- C1 pozostaje niezmienione, ponieważ żaden nowy punkt nie został do niego przypisany.
-- Nowy C2 to średnia z {11, 12, 20}, co daje 14.33 (zaokrąglając).
-
-### Krok 8: Sprawdzenie Konwergencji
-
-W prawdziwej iteracji algorytmu kontynuowalibyśmy proces z kolejnymi mini-batchami i aktualizacjami centroidów aż do osiągnięcia konwergencji, czyli do momentu, gdy przypisania punktów do klastrów się stabilizują i centroidy się już nie zmieniają.
-
+Proces jest powtarzany z kolejnymi mini-batchami i aktualizacjami centroidów aż do osiągnięcia konwergencji, czyli momentu, gdy przypisania punktów do klastrów się stabilizują i centroidy się już nie zmieniają.
