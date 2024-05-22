@@ -31,9 +31,9 @@ $$
 $$
 
 Gdzie:
-- \(\text{RSS}\) to suma kwadratów reszt.
-- \(\lambda\) to parametr regularyzacji, który kontroluje siłę kary.
-- \(\beta_j\) to współczynniki modelu regresji.
+- $ \text{RSS}\ $ to suma kwadratów reszt.
+- $ \lambda\ $ to parametr regularyzacji, który kontroluje siłę kary.
+- $ \beta_j\ $ to współczynniki modelu regresji.
 
 ## Elastic Net
 
@@ -45,9 +45,9 @@ $$
 
 
 Gdzie:
-- \(\text{RSS}\) to suma kwadratów reszt (residual sum of squares).
-- \(\lambda\) to parametr regularyzacji, który kontroluje siłę kary.
-- \(\beta_j\) to współczynniki modelu regresji.
+- $ \text{RSS}\ $ to suma kwadratów reszt (residual sum of squares).
+- $ \lambda\ $ to parametr regularyzacji, który kontroluje siłę kary.
+- $ \beta_j\ $ to współczynniki modelu regresji.
 
 
 ## Przykład wizualny
