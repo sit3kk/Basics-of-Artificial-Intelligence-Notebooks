@@ -1,6 +1,43 @@
+# Precision/Recall Tradeoff
+
+Wynik F1 score faworyzuje klasyfikatory, które mają podobną precision i recall. To nie zawsze jest to, czego potrzebujesz: w niektórych kontekstach dbamy głównie o precision, a w innych kontekstach naprawdę zależy nam na recall.
+
+Na przykład, jeśli wytrenowałeś klasyfikator do wykrywania filmów, które są bezpieczne dla dzieci, prawdopodobnie wolałbyś klasyfikator, który odrzuca wiele dobrych filmów (low recall), ale zachowuje tylko te bezpieczne (high precision).
+
+Z drugiej strony, przypuśćmy, że uczymy klasyfikator, który wykrywa kieszonkowców na kamerach z monitoringu: prawdopodobnie dobrze jest jeśli klasyfikator ma niskie precision 30%, o ile ma 99% recall (na pewno strażnicy dostaną kilka fałszywych alarmów, ale prawie wszyscy złodzieje zostaną złapani).
+
+Niestety nie możesz minimalizować ich obu: zwiększenie precision zmniejsza recall i na odwrót. Nazywa się to precision/recall tradeoff.
+
+## Jak działa precision/recall tradeoff?
+
+Aby zrozumieć ten kompromis, przyjrzyjmy się, w jaki sposób klasyfikator podejmuje decyzje dotyczące klasyfikacji. Dla każdego punktu oblicza funkcję decyzyjną, a jeśli ten wynik jest większy niż z góry ustawiony próg, przydziela ten element do klasy pozytywnej lub negatywnej.
+
+![alt text](image-1.png)
+
+Przypuśćmy, że próg decyzyjny znajduje się przy centralnej strzałce (pomiędzy dwoma piątkami):
+- Mamy 4 prawdziwe piątki po prawej stronie tego progu i jedną fałszywą. Dlatego przy tym progu precision wynosi 80% (4 na 5).
+- Ale z 6 rzeczywistych 5, klasyfikator wykrywa tylko 4, więc recall wynosi 67% (4 z 6).
+
+Teraz, jeśli podniesiesz próg (przesuń go do strzałki po prawej), szósty wynik false positive staje się true negative, tym samym zwiększając precision (do 100% w tym przypadku), ale jeden wynik true positive staje się false negative, zmniejszając recall do 50%. I odwrotnie, obniżenie progu zwiększa recall i zmniejsza precision.
+
+# ROC Curve
+
+Receiver Operating Characteristic (ROC) jest kolejnym powszechnym narzędziem stosowanym w klasyfikatorach binarnych. Jest to bardzo podobne do krzywej precision/recall curve, ale zamiast opisywać relację między precision a recall, opisuje:
+- Sensitivity (recall) vs 1-Specificity
+
+Gdzie:
+- Specificity = TN / (FP + TN)
+- Recall = TP / (TP + FN)
+
+Ponownie, im wyższe recall, tym więcej fałszywych alarmów specificity.
+
+Linia przerywana przedstawia krzywą ROC czysto losowego klasyfikatora. Dobry klasyfikator daje krzywą jak najdalszą od tej. Jednym ze sposobów porównywania klasyfikatorów jest pomiar area under the curve (AUC). Idealny klasyfikator będzie miał ROC AUC równe 1, podczas gdy klasyfikator czysto losowy będzie miał ROC AUC równe 0.5.
+
+
 # Definicje i Przykład Metryk Klasyfikacyjnych
 
 ## Accuracy (ACC)
+
 **Accuracy** (dokładność) to miara wydajności klasyfikatora, określająca stosunek liczby poprawnie sklasyfikowanych próbek do całkowitej liczby próbek.
 
 $$
@@ -8,6 +45,7 @@ $$
 $$
 
 ## Confusion Matrix
+
 **Confusion Matrix** (macierz pomyłek) to tabela, która pozwala wizualizować wydajność algorytmu klasyfikacji. Składa się z czterech elementów:
 
 - **TP (True Positive):** Liczba prawdziwie pozytywnych wyników.
@@ -21,7 +59,8 @@ $$
 | **Rzeczywiste Negatywne** | FP                     | TN                     |
 
 ## F1 Score
-**F1 Score** to miara wydajności klasyfikatora, która jest średnią harmoniczną precyzji (precision) i czułości (recall). 
+
+**F1 Score** to miara wydajności klasyfikatora, która jest średnią harmoniczną precyzji (precision) i czułości (recall).
 
 $$
 \text{F1 Score} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
@@ -61,8 +100,8 @@ $$
 
 |                        | Przewidywane Pozytywne | Przewidywane Negatywne |
 |------------------------|------------------------|------------------------|
-| **Rzeczywiste Pozytywne** | 3                      | 2                     |
-| **Rzeczywiste Negatywne** | 1                      | 4                     |
+| **Rzeczywiste Pozytywne** | 3                      | 2                      |
+| **Rzeczywiste Negatywne** | 1                      | 4                      |
 
 3. **Precision:**
 
@@ -88,8 +127,6 @@ $$
 - **Precision:** 0.75
 - **Recall:** 0.6
 - **F1 Score:** 0.666
-
-Powyższe miary pomagają zrozumieć, jak dobrze działa klasyfikator w różnych aspektach, takich jak dokładność, precyzja, czułość oraz zbalansowanie pomiędzy precyzją a czułością.
 
 # Kiedy używać której miary oceny klasyfikatora
 
@@ -166,6 +203,37 @@ Wybór odpowiedniej miary oceny klasyfikatora zależy od specyfiki problemu i ce
 - **Ważne miary:**
   - **Recall:** Ważne, aby wykryć wszystkie zagrożenia (fałszywie negatywne mogą być bardzo kosztowne).
   - **Precision:** Ważne, aby zminimalizować fałszywe alarmy (fałszywie pozytywne), które mogą powodować niepotrzebne interwencje.
+
+
+# ROC Curve
+
+Receiver Operating Characteristic (ROC) jest kolejnym powszechnym narzędziem stosowanym w klasyfikatorach binarnych. Jest to bardzo podobne do krzywej precision/recall curve, ale zamiast opisywać relację między precision a recall, opisuje:
+- Sensitivity (recall) vs 1-Specificity
+
+Gdzie:
+- Specificity = TN / (FP + TN)
+- Recall = TP / (TP + FN)
+
+Ponownie, im wyższe recall, tym więcej fałszywych alarmów specificity.
+
+Linia przerywana przedstawia krzywą ROC czysto losowego klasyfikatora. Dobry klasyfikator daje krzywą jak najdalszą od tej. Jednym ze sposobów porównywania klasyfikatorów jest pomiar area under the curve (AUC). Idealny klasyfikator będzie miał ROC AUC równe 1, podczas gdy klasyfikator czysto losowy będzie miał ROC AUC równe 0.5.
+
+## Kiedy używać ROC Curve?
+
+- **Gdy dane są niezbalansowane:** Krzywa ROC dobrze radzi sobie z niezbalansowanymi danymi, ponieważ uwzględnia zarówno czułość, jak i specyficzność.
+- **Ocena różnych progów:** Gdy chcesz ocenić wydajność klasyfikatora przy różnych progach decyzyjnych.
+- **Porównanie klasyfikatorów:** Gdy chcesz porównać ogólną wydajność różnych klasyfikatorów niezależnie od wybranego progu.
+- **Zrozumienie kompromisu między czułością a specyficznością:** Gdy chcesz zrozumieć, jak zmiana progu wpływa na czułość i specyficzność klasyfikatora.
+
+## Kiedy nie używać ROC Curve?
+
+- **Gdy zależy Ci głównie na precyzji:** Jeśli precyzja jest dla Ciebie ważniejsza niż czułość (np. w przypadku wykrywania spamu, gdzie fałszywe alarmy są kosztowne), krzywa ROC może nie być najlepszym narzędziem.
+- **Gdy dane są skrajnie niezbalansowane:** W przypadkach, gdy klasa pozytywna jest bardzo rzadka, krzywa ROC może nie dostarczyć wystarczająco szczegółowych informacji na temat wydajności klasyfikatora w kontekście wysokiego poziomu fałszywych alarmów.
+- **Gdy koszty fałszywie pozytywnych i fałszywie negatywnych wyników są bardzo różne:** Jeśli konsekwencje fałszywych pozytywów są znacznie bardziej kosztowne niż fałszywych negatywów (lub odwrotnie), inne miary, takie jak precision-recall curve, mogą być bardziej odpowiednie.
+
+## Przykład użycia krzywej ROC
+
+Załóżmy, że mamy klasyfikator binarny, który przewiduje, czy dana wiadomość e-mail jest spamem. Obliczamy czułość i specyficzność dla różnych progów decyzyjnych i rysujemy krzywą ROC, aby zobaczyć, jak dobrze klasyfikator radzi sobie z oddzielaniem spamu od niespamu.
 
 ## Podsumowanie
 
