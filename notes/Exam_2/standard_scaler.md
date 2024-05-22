@@ -15,10 +15,10 @@ z = \frac{(x - \mu)}{\sigma}
 $$
 
 Gdzie:
-- \( x \) to oryginalna wartość cechy,
-- \( \mu \) to średnia cechy w zestawie treningowym,
-- \( \sigma \) to odchylenie standardowe cechy w zestawie treningowym,
-- \( z \) to zstandaryzowana wartość cechy.
+- $ x $ to oryginalna wartość cechy,
+- $ \mu $ to średnia cechy w zestawie treningowym,
+- $ \sigma $ to odchylenie standardowe cechy w zestawie treningowym,
+- $ z $ to zstandaryzowana wartość cechy.
 
 ## Przykład użycia StandardScaler w Pythonie
 
