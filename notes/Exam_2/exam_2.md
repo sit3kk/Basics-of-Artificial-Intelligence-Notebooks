@@ -14,7 +14,7 @@
 ### 4. Podaj wzór na Accuracy (ACC):
 # $ ACC = \frac{TP + TN}{TP + TN + FP + FN}  $
 
-### 5. Niech będzie dany zbiór danych \((X, Y) = \{(x_i, y_i)\}_{i=1}^{n}\), gdzie \(y_i \in \{0, 1\}\) (klasyfikacja binarna). Podaj funkcję kosztu modelu regresji logistycznej:
+### 5. Niech będzie dany zbiór danych $ (X, Y) = \{(x_i, y_i)\}_{i=1}^{n} $, gdzie $ y_i \in \{0, 1\} $ (klasyfikacja binarna). Podaj funkcję kosztu modelu regresji logistycznej:
 ##  $  J(w) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y_i \log(h_w(x_i)) + (1 - y_i) \log(1 - h_w(x_i)) \right] \ $
 
 ### 6. Rozważmy problem klasyfikacji binarnej. Podaj definicje pojęć:
